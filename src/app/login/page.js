@@ -44,7 +44,7 @@ export default function LoginPage() {
           {/* Icon */}
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full gradient-bg text-white text-2xl font-bold shadow-lg shadow-purple-300/40 mb-4">
-              {isRegister ? '&#x270D;' : '&#x1F44B;'}
+              {isRegister ? 'QBL' : 'QBL'}
             </div>
             <h1 className="text-2xl font-bold text-gray-800">
               {isRegister ? 'Create Account' : 'Welcome Back'}
@@ -56,7 +56,7 @@ export default function LoginPage() {
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded-xl mb-4 text-sm flex items-center gap-2">
-              <span>&#x26A0;</span> {error}
+              <span>QBL</span> {error}
             </div>
           )}
 

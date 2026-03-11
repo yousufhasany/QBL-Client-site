@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
@@ -10,12 +10,20 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { login, register } = useAuth();
   const router = useRouter();
+
+  // Prefetch destination routes so navigation is instant after login
+  useEffect(() => {
+    router.prefetch('/dashboard');
+    router.prefetch('/admin');
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSubmitting(true);
     try {
       let user;
       if (isRegister) {
@@ -24,12 +32,13 @@ export default function LoginPage() {
         user = await login(email, password);
       }
       if (user.role === 'admin') {
-        router.push('/admin');
+        router.replace('/admin');
       } else {
-        router.push('/dashboard');
+        router.replace('/dashboard');
       }
     } catch (err) {
       setError(err.response?.data?.message || (isRegister ? 'Registration failed' : 'Login failed'));
+      setSubmitting(false);
     }
   };
 
@@ -98,9 +107,18 @@ export default function LoginPage() {
             </div>
             <button
               type="submit"
-              className="w-full gradient-bg text-white p-3 rounded-xl hover:opacity-90 transition font-semibold shadow-lg shadow-purple-300/30 btn-press"
+              disabled={submitting}
+              className="w-full gradient-bg text-white p-3 rounded-xl hover:opacity-90 transition font-semibold shadow-lg shadow-purple-300/30 btn-press disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {isRegister ? 'Create Account' : 'Login'}
+              {submitting && (
+                <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+              )}
+              {submitting
+                ? (isRegister ? 'Creating Account...' : 'Logging in...')
+                : (isRegister ? 'Create Account' : 'Login')}
             </button>
           </form>
 

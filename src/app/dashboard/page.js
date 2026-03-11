@@ -9,15 +9,19 @@ import Link from 'next/link';
 export default function DashboardPage() {
   const { user, loading } = useAuth();
   const [sessions, setSessions] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (user) {
-      api.get('/api/sessions').then((res) => setSessions(res.data));
+      api.get('/api/sessions')
+        .then((res) => setSessions(res.data))
+        .catch((err) => setError(err.response?.data?.message || 'Failed to load sessions'));
     }
   }, [user]);
 
   if (loading) return <p className="text-center py-20">Loading...</p>;
   if (!user) return <p className="text-center py-20">Please log in to access the dashboard.</p>;
+  if (error) return <p className="text-center py-20 text-red-600">{error}</p>;
 
   return (
     <div>

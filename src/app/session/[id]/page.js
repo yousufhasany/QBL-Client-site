@@ -2,25 +2,39 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import api from '@/lib/api';
 import QuestionCard from '@/components/QuestionCard';
-import QRCodeDisplay from '@/components/QRCodeDisplay';
 import Link from 'next/link';
+
+const QRCodeDisplay = dynamic(() => import('@/components/QRCodeDisplay'), {
+  loading: () => (
+    <div className="glass-card rounded-2xl p-8 flex items-center justify-center h-80">
+      <p className="text-gray-400">Loading QR code...</p>
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function SessionDetailPage() {
   const { id } = useParams();
   const [session, setSession] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchSession();
   }, [id]);
 
   const fetchSession = async () => {
-    const res = await api.get(`/api/sessions/${id}`);
-    setSession(res.data.session);
-    setQuestions(res.data.questions);
+    try {
+      const res = await api.get(`/api/sessions/${id}`);
+      setSession(res.data.session);
+      setQuestions(res.data.questions);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to load session');
+    }
   };
 
   const handleAddQuestion = async (e) => {
@@ -46,6 +60,7 @@ export default function SessionDetailPage() {
     fetchSession();
   };
 
+  if (error) return <p className="text-center py-20 text-red-600">{error}</p>;
   if (!session) return <p className="text-center py-20">Loading...</p>;
 
   const joinUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/join/${session.sessionCode}`;

@@ -91,32 +91,6 @@ export default function ResultsPage() {
   const isAtStart = questionIndex === 0 && answerIndex === -1;
   const isSessionActive = session?.status === 'active';
 
-  if (grouped.length === 0) {
-    return (
-      <div className="min-h-[70vh] flex items-center justify-center">
-        <div className="glass-card rounded-3xl p-10 text-center max-w-sm">
-          <div className="text-5xl mb-4">&#x1F4ED;</div>
-          <h1 className="text-2xl font-bold mb-2 text-gray-800">Results: {session.title}</h1>
-          <p className="text-gray-500 mb-6">No questions in this session.</p>
-          <div className="flex gap-3 justify-center">
-            <button
-              onClick={handleRestart}
-              className="gradient-bg-forest text-white px-5 py-2 rounded-full hover:opacity-90 transition font-semibold btn-press"
-            >
-              Restart Session
-            </button>
-            <Link
-              href="/dashboard"
-              className="bg-white border-2 border-gray-300 text-gray-600 px-5 py-2 rounded-full hover:bg-gray-50 transition font-semibold btn-press"
-            >
-              Dashboard
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const buildPdf = () => {
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
     const pageWidth = doc.internal.pageSize.getWidth();
@@ -206,6 +180,32 @@ export default function ResultsPage() {
 
   if (error) return <p className="text-center py-20 text-red-600">{error}</p>;
   if (!session) return <p className="text-center py-20">Loading results...</p>;
+
+  if (grouped.length === 0) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <div className="glass-card rounded-3xl p-10 text-center max-w-sm">
+          <div className="text-5xl mb-4">&#x1F4ED;</div>
+          <h1 className="text-2xl font-bold mb-2 text-gray-800">Results: {session.title}</h1>
+          <p className="text-gray-500 mb-6">No questions in this session.</p>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={handleRestart}
+              className="gradient-bg-forest text-white px-5 py-2 rounded-full hover:opacity-90 transition font-semibold btn-press"
+            >
+              Restart Session
+            </button>
+            <Link
+              href="/dashboard"
+              className="bg-white border-2 border-gray-300 text-gray-600 px-5 py-2 rounded-full hover:bg-gray-50 transition font-semibold btn-press"
+            >
+              Dashboard
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="text-center py-10">

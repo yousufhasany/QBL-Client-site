@@ -9,7 +9,7 @@ export default function Home() {
   if (loading) return <p className="text-center py-20">Loading...</p>;
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden home-background text-white">
       {/* Hero Section */}
       <div className="text-center py-16 relative">
         {/* Decorative floating shapes */}

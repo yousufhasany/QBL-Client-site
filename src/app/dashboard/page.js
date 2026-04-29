@@ -19,6 +19,10 @@ export default function DashboardPage() {
     }
   }, [user]);
 
+  const handleDelete = (sessionId) => {
+    setSessions((prev) => prev.filter((s) => s._id !== sessionId));
+  };
+
   if (loading) return <p className="text-center py-20">Loading...</p>;
   if (!user) return <p className="text-center py-20">Please log in to access the dashboard.</p>;
   if (error) return <p className="text-center py-20 text-red-600">{error}</p>;
@@ -54,7 +58,7 @@ export default function DashboardPage() {
       ) : (
         <div className="grid gap-5 sm:grid-cols-2">
           {sessions.map((s) => (
-            <SessionCard key={s._id} session={s} />
+            <SessionCard key={s._id} session={s} onDelete={handleDelete} />
           ))}
         </div>
       )}

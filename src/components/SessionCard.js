@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import api from '@/lib/api';
 
-export default function SessionCard({ session }) {
+export default function SessionCard({ session, onDelete }) {
   const statusConfig = {
     draft: {
       bg: 'bg-amber-50 text-amber-700 border-amber-200',
@@ -23,6 +24,19 @@ export default function SessionCard({ session }) {
 
   const config = statusConfig[session.status] || statusConfig.draft;
 
+  const handleDelete = async () => {
+    const confirmed = window.confirm('Delete this session? This cannot be undone.');
+    if (!confirmed) return;
+
+    try {
+      await api.delete(`/api/sessions/${session._id}`);
+      onDelete?.(session._id);
+    } catch (error) {
+      const message = error.response?.data?.message || 'Failed to delete session';
+      alert(message);
+    }
+  };
+
   return (
     <div className="glass-card rounded-2xl p-5 card-hover relative overflow-hidden">
       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${config.gradient}`}></div>
@@ -40,12 +54,20 @@ export default function SessionCard({ session }) {
         </span>
       </div>
 
-      <Link
-        href={`/session/${session._id}`}
-        className="inline-flex items-center gap-1 text-sm font-semibold text-purple-600 hover:text-purple-700 transition"
-      >
-        Manage Session &rarr;
-      </Link>
+      <div className="flex items-center justify-between gap-3">
+        <Link
+          href={`/session/${session._id}`}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-purple-600 hover:text-purple-700 transition"
+        >
+          Manage Session &rarr;
+        </Link>
+        <button
+          onClick={handleDelete}
+          className="text-sm text-red-600 hover:text-red-700 font-semibold"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 }

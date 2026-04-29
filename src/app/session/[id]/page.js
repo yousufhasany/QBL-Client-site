@@ -10,7 +10,7 @@ import Link from 'next/link';
 const QRCodeDisplay = dynamic(() => import('@/components/QRCodeDisplay'), {
   loading: () => (
     <div className="glass-card rounded-2xl p-8 flex items-center justify-center h-80">
-      <p className="text-gray-400">Loading QR code...</p>
+      <p className="text-white">Loading QR code...</p>
     </div>
   ),
   ssr: false,
@@ -128,7 +128,7 @@ export default function SessionDetailPage() {
       <div className="grid md:grid-cols-2 gap-8">
         {/* Questions */}
         <div>
-          <h2 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+          <h2 className="font-bold text-lg text-white mb-4 flex items-center gap-2">
             &#x2753; Questions
             <span className="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full font-medium">
               {questions.length}
@@ -144,7 +144,7 @@ export default function SessionDetailPage() {
               />
             ))}
             {questions.length === 0 && (
-              <p className="text-gray-400 text-sm text-center py-6">No questions yet. Add one below!</p>
+              <p className="text-white text-sm text-center py-6">No questions yet. Add one below!</p>
             )}
           </div>
           <form onSubmit={handleAddQuestion} className="flex gap-2">
@@ -153,7 +153,7 @@ export default function SessionDetailPage() {
               placeholder="Type a new question..."
               value={newQuestion}
               onChange={(e) => setNewQuestion(e.target.value)}
-              className="flex-1 border border-gray-200 p-3 rounded-xl bg-gray-50/50"
+              className="flex-1 border border-white-200 p-3 rounded-xl bg-gray-50/50"
             />
             <button
               type="submit"
@@ -166,7 +166,7 @@ export default function SessionDetailPage() {
 
         {/* QR Code */}
         <div>
-          <h2 className="font-bold text-lg text-gray-800 mb-4">&#x1F4F1; Student Join</h2>
+          <h2 className="font-bold text-lg text-white mb-4">&#x1F4F1; Student Join</h2>
           <QRCodeDisplay url={joinUrl} />
         </div>
       </div>

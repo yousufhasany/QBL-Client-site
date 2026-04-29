@@ -14,16 +14,17 @@
 
 body {
   background-color: var(--background);
+  background-image: url('https://i.ibb.co.com/GvYLCJkM/abstract-blue-backdrop-nerve-cells-connect-via-synapse-generated-by-ai.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
 .home-background {
-  background-image: url('https://i.ibb.co.com/LdPVCyQ6/6000.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background: transparent;
 }
 
 /* Animated gradient background */

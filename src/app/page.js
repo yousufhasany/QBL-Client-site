@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="relative overflow-hidden home-background text-white">
       {/* Hero Section */}
-      <div className="text-center py-16 relative">
+      <div className="text-center py-16 relative max-w-5xl mx-auto px-4">
         {/* Decorative floating shapes */}
         <div className="absolute top-10 left-10 w-20 h-20 bg-purple-200 rounded-full opacity-40 animate-float"></div>
         <div className="absolute top-20 right-16 w-14 h-14 bg-pink-200 rounded-full opacity-40 animate-float-delay"></div>
@@ -32,7 +32,7 @@ export default function Home() {
             </span>
           </h1>
 
-          <p className="text-gray-500 mb-10 max-w-lg mx-auto text-lg">
+          <p className="text-slate-100 font-semibold mb-10 max-w-lg mx-auto text-lg drop-shadow-2xl">
             Question-based learning, where teachers ask and students answer instantly. Make your classroom interactive and fun!
           </p>
 
@@ -83,30 +83,30 @@ export default function Home() {
       </div>
 
       {/* How it works */}
-      <div className="py-16">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+      <div className="py-16 max-w-5xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12 text-white-800">
           How It Works
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
           <div className="text-center">
             <div className="w-16 h-16 rounded-full gradient-bg flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-purple-300/40">1</div>
             <h4 className="font-semibold mb-1">Create Session</h4>
-            <p className="text-sm text-gray-500">Teacher creates a live session</p>
+            <p className="text-sm text-white-500">Teacher creates a live session</p>
           </div>
           <div className="text-center">
             <div className="w-16 h-16 rounded-full gradient-bg-ocean flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-blue-300/40">2</div>
             <h4 className="font-semibold mb-1">Add Questions</h4>
-            <p className="text-sm text-gray-500">Prepare your questions</p>
+            <p className="text-sm text-white-500">Prepare your questions</p>
           </div>
           <div className="text-center">
             <div className="w-16 h-16 rounded-full gradient-bg-sunset flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-pink-300/40">3</div>
             <h4 className="font-semibold mb-1">Students Join</h4>
-            <p className="text-sm text-gray-500">Scan QR code to join</p>
+            <p className="text-sm text-white-500">Scan QR code to join</p>
           </div>
           <div className="text-center">
             <div className="w-16 h-16 rounded-full gradient-bg-forest flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-green-300/40">4</div>
             <h4 className="font-semibold mb-1">Get Answers</h4>
-            <p className="text-sm text-gray-500">View anonymous responses</p>
+            <p className="text-sm text-white-500">View anonymous responses</p>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import api from '@/lib/api';
 import Link from 'next/link';
 import { jsPDF } from 'jspdf';
@@ -9,11 +9,13 @@ import { jsPDF } from 'jspdf';
 export default function ResultsPage() {
   const { id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [session, setSession] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [error, setError] = useState('');
   const [downloading, setDownloading] = useState(false);
+  const [autoDownloaded, setAutoDownloaded] = useState(false);
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerIndex, setAnswerIndex] = useState(-1);
@@ -196,6 +198,14 @@ export default function ResultsPage() {
       setDownloading(false);
     }
   };
+
+  useEffect(() => {
+    const shouldAutoDownload = searchParams?.get('download') === '1';
+    if (!autoDownloaded && shouldAutoDownload && session && grouped.length > 0) {
+      setAutoDownloaded(true);
+      handleDownloadPdf();
+    }
+  }, [autoDownloaded, grouped.length, searchParams, session]);
 
   return (
     <div className="text-center py-10">

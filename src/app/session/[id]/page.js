@@ -94,6 +94,12 @@ export default function SessionDetailPage() {
             {isCompleted && (
               <>
                 <Link
+                  href={`/session/${id}/results?download=1`}
+                  className="bg-white border-2 border-gray-300 text-gray-700 px-5 py-2 rounded-full hover:bg-gray-50 transition font-semibold text-sm btn-press"
+                >
+                  Download PDF
+                </Link>
+                <Link
                   href={`/session/${id}/results`}
                   className="bg-white border-2 border-purple-400 text-purple-600 px-5 py-2 rounded-full hover:bg-purple-50 transition font-semibold text-sm btn-press"
                 >

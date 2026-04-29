@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import api from '@/lib/api';
 import Link from 'next/link';
+import { jsPDF } from 'jspdf';
 
 export default function ResultsPage() {
   const { id } = useParams();
@@ -12,6 +13,7 @@ export default function ResultsPage() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [error, setError] = useState('');
+  const [downloading, setDownloading] = useState(false);
 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerIndex, setAnswerIndex] = useState(-1);
@@ -116,6 +118,85 @@ export default function ResultsPage() {
     );
   }
 
+  const buildPdf = () => {
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 40;
+    let y = margin;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text('QBL - Session Results', margin, y);
+    y += 22;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.text(`Session: ${session.title}`, margin, y);
+    y += 16;
+    doc.text(`Total responses: ${totalAnswers}`, margin, y);
+    y += 10;
+    doc.setDrawColor(200, 200, 200);
+    doc.line(margin, y + 6, pageWidth - margin, y + 6);
+    y += 22;
+
+    grouped.forEach((q, index) => {
+      const header = `Q${index + 1}. ${q.questionText}`;
+      const questionLines = doc.splitTextToSize(header, pageWidth - margin * 2);
+      if (y + questionLines.length * 14 > pageHeight - margin) {
+        doc.addPage();
+        y = margin;
+      }
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13);
+      doc.text(questionLines, margin, y);
+      y += questionLines.length * 14 + 6;
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+
+      if (q.answers.length === 0) {
+        const noAnswer = '(No answers received)';
+        if (y + 14 > pageHeight - margin) {
+          doc.addPage();
+          y = margin;
+        }
+        doc.text(noAnswer, margin + 12, y);
+        y += 16;
+      } else {
+        q.answers.forEach((answer, ansIndex) => {
+          const line = `${ansIndex + 1}) ${answer}`;
+          const answerLines = doc.splitTextToSize(line, pageWidth - margin * 2 - 12);
+          if (y + answerLines.length * 13 > pageHeight - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          doc.text(answerLines, margin + 12, y);
+          y += answerLines.length * 13 + 4;
+        });
+      }
+
+      y += 6;
+      if (y > pageHeight - margin) {
+        doc.addPage();
+        y = margin;
+      }
+    });
+
+    const safeTitle = session.title.replace(/[^a-z0-9-_]+/gi, '_').toLowerCase();
+    doc.save(`qbl_${safeTitle}_results.pdf`);
+  };
+
+  const handleDownloadPdf = () => {
+    setDownloading(true);
+    try {
+      buildPdf();
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="text-center py-10">
       <div className="inline-block mb-4">
@@ -125,6 +206,16 @@ export default function ResultsPage() {
       </div>
       <h1 className="text-2xl font-bold mb-2 text-gray-800">{session.title}</h1>
       <p className="text-gray-500 mb-8">{totalAnswers} total response(s)</p>
+
+      <div className="flex justify-center mb-6">
+        <button
+          onClick={handleDownloadPdf}
+          disabled={downloading}
+          className="bg-white border-2 border-gray-300 text-gray-700 px-5 py-2 rounded-full hover:bg-gray-50 transition font-semibold btn-press disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {downloading ? 'Preparing PDF...' : 'Download PDF'}
+        </button>
+      </div>
 
       <div className="glass-card rounded-3xl p-8 max-w-lg mx-auto mb-8 shadow-xl">
         <p className="text-sm text-purple-500 font-medium mb-2">

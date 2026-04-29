@@ -17,7 +17,7 @@ export default function Navbar() {
     <nav className="gradient-bg shadow-lg px-6 py-4 flex items-center justify-between">
       <Link href="/" className="text-2xl font-bold text-white flex items-center gap-2">
         <span className="bg-white text-purple-600 rounded-lg px-2 py-1 text-lg">Q</span>
-        <span>QBL</span>
+        <span>Questions Based Learning(QBL)</span>
       </Link>
 
       <div className="flex items-center gap-4">

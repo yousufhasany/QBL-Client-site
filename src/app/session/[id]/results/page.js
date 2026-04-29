@@ -49,9 +49,6 @@ export default function ResultsPage() {
     }
   };
 
-  if (error) return <p className="text-center py-20 text-red-600">{error}</p>;
-  if (!session) return <p className="text-center py-20">Loading results...</p>;
-
   const grouped = questions.map((q) => {
     const questionAnswers = answers.filter((ans) => {
       const ansQId = ans.questionId?._id || ans.questionId;
@@ -92,7 +89,7 @@ export default function ResultsPage() {
   };
 
   const isAtStart = questionIndex === 0 && answerIndex === -1;
-  const isSessionActive = session.status === 'active';
+  const isSessionActive = session?.status === 'active';
 
   if (grouped.length === 0) {
     return (
@@ -206,6 +203,9 @@ export default function ResultsPage() {
       handleDownloadPdf();
     }
   }, [autoDownloaded, grouped.length, searchParams, session]);
+
+  if (error) return <p className="text-center py-20 text-red-600">{error}</p>;
+  if (!session) return <p className="text-center py-20">Loading results...</p>;
 
   return (
     <div className="text-center py-10">

@@ -33,8 +33,7 @@ export default function Home() {
           </h1>
 
           <p className="text-gray-500 mb-10 max-w-lg mx-auto text-lg">
-            Question Based Learning — where teachers ask and students answer
-            instantly. Make your classroom interactive and fun!
+            Question-based learning, where teachers ask and students answer instantly. Make your classroom interactive and fun!
           </p>
 
           {/* Feature cards */}

@@ -240,7 +240,7 @@ export default function LiveSessionPage() {
       ) : (
         <div className="glass-card rounded-3xl p-10 max-w-lg mx-auto mb-8">
           <div className="text-5xl mb-4"></div>
-          <p className="text-white text-lg">
+          <p className="text-black text-lg">
             Press &quot;Start&quot; to begin the session.
           </p>
         </div>

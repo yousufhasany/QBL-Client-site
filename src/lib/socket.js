@@ -7,6 +7,9 @@ let socket = null;
 
 export const getSocket = () => {
   if (!socket) {
+    if (typeof window !== 'undefined') {
+      console.log(`[socket] connecting to ${SOCKET_URL}`);
+    }
     socket = io(SOCKET_URL, {
       autoConnect: true,
       reconnection: true,

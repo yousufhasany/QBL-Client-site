@@ -136,7 +136,7 @@ export default function LiveSessionPage() {
       return (
         <div className="text-center py-10">
           <div className="text-5xl mb-4">&#x1F4ED;</div>
-          <h1 className="text-2xl font-bold mb-4 text-gray-800">No Questions Yet</h1>
+          <h1 className="text-2xl font-bold mb-4 text-white">No Questions Yet</h1>
           <button
             onClick={handleCloseAnswers}
             className="gradient-bg text-white px-6 py-3 rounded-full hover:opacity-90 transition font-semibold btn-press"
@@ -154,8 +154,8 @@ export default function LiveSessionPage() {
             Viewing Answers
           </span>
         </div>
-        <h1 className="text-2xl font-bold mb-2 text-gray-800">{session.title}</h1>
-        <p className="text-gray-500 mb-8">{totalAnswers} total response(s)</p>
+        <h1 className="text-2xl font-bold mb-2 text-white">{session.title}</h1>
+        <p className="text-white mb-8">{totalAnswers} total response(s)</p>
 
         <div className="glass-card rounded-3xl p-8 max-w-lg mx-auto mb-8 shadow-xl">
           <p className="text-sm text-purple-500 font-medium mb-2">
@@ -224,8 +224,8 @@ export default function LiveSessionPage() {
           &#x1F534; LIVE
         </span>
       </div>
-      <h1 className="text-3xl font-bold mb-2 text-gray-800">{session.title}</h1>
-      <p className="text-gray-500 mb-8">
+      <h1 className="text-3xl font-bold mb-2 text-white">{session.title}</h1>
+      <p className="text-white mb-8">
         Session Code: <span className="font-mono bg-gray-100 px-3 py-1 rounded-full text-purple-600 font-bold">{session.sessionCode}</span>
       </p>
 
@@ -239,8 +239,8 @@ export default function LiveSessionPage() {
         </div>
       ) : (
         <div className="glass-card rounded-3xl p-10 max-w-lg mx-auto mb-8">
-          <div className="text-5xl mb-4">&#x1F680;</div>
-          <p className="text-gray-500 text-lg">
+          <div className="text-5xl mb-4"></div>
+          <p className="text-white text-lg">
             Press &quot;Start&quot; to begin the session.
           </p>
         </div>
@@ -252,7 +252,7 @@ export default function LiveSessionPage() {
             onClick={handleNextQuestion}
             className="gradient-bg text-white px-8 py-3 rounded-full hover:opacity-90 transition font-semibold text-lg btn-press shadow-lg shadow-purple-300/30"
           >
-            {currentIndex === 0 ? '&#x25B6; Start' : 'Next Question &rarr;'}
+            {currentIndex === 0 ? 'Start' : 'Next Question;'}
           </button>
         ) : (
           <button

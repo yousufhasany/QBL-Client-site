@@ -59,7 +59,7 @@ export default function SessionCard({ session, onDelete }) {
           href={`/session/${session._id}`}
           className="inline-flex items-center gap-1 text-sm font-semibold text-purple-600 hover:text-purple-700 transition"
         >
-          Manage Session &rarr;
+          Manage Session;
         </Link>
         <button
           onClick={handleDelete}

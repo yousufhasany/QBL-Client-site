@@ -214,8 +214,8 @@ export default function ResultsPage() {
           Session Results
         </span>
       </div>
-      <h1 className="text-2xl font-bold mb-2 text-gray-800">{session.title}</h1>
-      <p className="text-gray-500 mb-8">{totalAnswers} total response(s)</p>
+      <h1 className="text-2xl font-bold mb-2 text-white">{session.title}</h1>
+      <p className="text-white mb-8">{totalAnswers} total response(s)</p>
 
       <div className="flex justify-center mb-6">
         <button

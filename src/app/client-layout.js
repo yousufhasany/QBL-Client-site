@@ -33,7 +33,7 @@ export default function ClientLayout({ children }) {
                   <span className="text-xl font-bold text-white">QBL</span>
                 </div>
                 <p className="text-sm text-gray-400 leading-relaxed">
-                  Question Based Learning — a real-time classroom interaction platform where teachers ask and students answer instantly.
+                  Question Based Learning and real-time classroom interaction platform where teachers ask and students answer instantly.
                 </p>
               </div>
 

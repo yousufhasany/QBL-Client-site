@@ -46,8 +46,8 @@ export default function DashboardPage() {
       {sessions.length === 0 ? (
         <div className="glass-card rounded-3xl p-12 text-center">
           <div className="text-6xl mb-4">&#x1F4DA;</div>
-          <h3 className="text-xl font-bold text-gray-700 mb-2">No sessions yet</h3>
-          <p className="text-gray-500 mb-6">Create your first session to get started!</p>
+          <h3 className="text-xl font-bold text-black mb-2">No sessions yet</h3>
+          <p className="text-white-500 mb-6">Create your first session to get started!</p>
           <Link
             href="/session/create"
             className="gradient-bg text-white px-6 py-3 rounded-full hover:opacity-90 transition font-semibold inline-block btn-press"

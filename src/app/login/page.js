@@ -58,7 +58,7 @@ export default function LoginPage() {
             <h1 className="text-2xl font-bold text-gray-800">
               {isRegister ? 'Create Account' : 'Welcome Back'}
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-black mt-1">
               {isRegister ? 'Start your QBL journey' : 'Log in to your QBL account'}
             </p>
           </div>
